@@ -1,18 +1,7 @@
 <?php 
-session_start();
-if (!isset($_SESSION['login']) || $_SESSION['login'] != "OK") {
-    header('location: index.php');
-}
+
 
 require_once('librerias/conexionBD.php');
-
-$sql = "select * from usuarios";
-$result =  $conn->query($sql);
-$usuarios = array();
-while ($fila =  $result->fetch_array()) {
-    $usuarios[] = $fila;
-}
-
 $sql = "select * from roles";
 $result =  $conn->query($sql);
 $roles = array();
@@ -20,6 +9,12 @@ while ($fila =  $result->fetch_array()) {
     $roles[] = $fila;
 }
 
+$sql = "select * from usuarios";
+$result =  $conn->query($sql);
+$usuarios = array();
+while ($fila =  $result->fetch_array()) {
+    $usuarios[] = $fila;
+}
 
 require_once('librerias/cabe.php');
 ?>
@@ -32,8 +27,8 @@ require_once('librerias/cabe.php');
 
                   <div class="form-group">
                     <label for="">Usuario</label>
-                    <select name="id_usuario" class="form-control">
-                      <option value="">-- Seleccione --</option>
+                    <select  class="form-control" name="id_usuario">
+                      <option value="">-- Seleccionar --</option>
                       <?php foreach ($usuarios as $item): ?>
                         <option value="<?= $item['id'] ?>"><?= $item['usuario'] ?></option>
                       <?php endforeach ?>
@@ -43,7 +38,7 @@ require_once('librerias/cabe.php');
 
                   <div class="form-group">
                     <label for="">Rol</label>
-                    <select name="id_rol" class="form-control">
+                    <select  class="form-control" name="id_rol">
                       <option value="">-- Seleccione --</option>
                       <?php foreach ($roles as $item): ?>
                         <option value="<?= $item['id'] ?>"><?= $item['descripcion'] ?></option>

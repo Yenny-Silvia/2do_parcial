@@ -3,10 +3,7 @@
 require_once('librerias/conexionBD.php');
 $sql = "select * from roles";
 $result =  $conn->query($sql);
-$roles = array();
-while ($fila =  $result->fetch_array()) {
-    $roles[] = $fila;
-}
+
 require_once('librerias/cabe.php');
 ?>
       <div class="container">
@@ -19,22 +16,25 @@ require_once('librerias/cabe.php');
                 <table class="table table-striped">
                     <tr>
                         <th>Id</th>
-                        <th>descripcion</th>
+                        <th>Descripcion</th>
                         <th></th>
                         <th></th>
                     </tr>
-                    <?php foreach ($roles as $item): ?>
-                    <tr>
-                        <td><?= $item['id']?></td>
-                        <td><?= $item['descripcion']?></td>
-                        <td>
-                            <a href="rol-edit.php" class="btn btn-primary">Editar</a>
-                        </td>
-                        <td>
-                            <a href="eliminar.php" class="btn btn-danger">Eliminar</a>
-                        </td>
-                    </tr>
-                    <?php endforeach ?>
+                     <?php
+                        if($result->num_rows>0){
+                          $conta=0;
+                          while ($fila=$result->fetch_array()) {
+                            echo "<tr>";
+                            echo '<td>'.++$conta.'</td>';
+                            echo '<td>'.$fila['descripcion'].'</td>';
+                            echo '<td><a href="rol-edit.php?id=' . $fila['id']. '" class="btn btn-primary">Editar</a></td>';
+                            echo '<td><a href="rol-elimina.php?id=' . $fila['id']. '"onclick="return confirm(\'Seguro que quiere eliminar?\')" class="btn btn-danger">Eliminar</a></td>';
+                            echo "</tr>";
+                          }
+                        }
+                        else{
+                          '<p> No existen registros</p>';
+                        }?>
                 </table>
             </div>
         </div>

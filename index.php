@@ -48,18 +48,18 @@
       <div class="row">
         <div class="col-4">
           <form  action="login.php" method="post" class="form-signin" autocomplete="off">
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Iniciar</h1>
         <label for="" class="sr-only">Usuario</label>
         <input type="text" name="usuario" class="form-control" placeholder="Usuario" required autofocus>
         <label for="" class="sr-only">Clave</label>
-        <input type="password" name="clave" class="form-control" placeholder="Clave" required>
+        <input type="password" name="clave" class="form-control" placeholder="Contraseña" required>
         <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me"> Recuerdame
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+        <p class="mt-5 mb-3 text-muted">&copy; Yen-2020</p>
       </form>
         </div>
       </div>

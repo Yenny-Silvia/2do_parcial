@@ -3,10 +3,13 @@ require_once('librerias/conexionBD.php');
 
 $descripcion = $_POST['descripcion'];
 
-// var_dump($fecha_nac); // YYYY-MM-DD
-// die();
-
-$sql = "insert into roles (descripcion) values ('$descripcion')";
+if(!$_POST['id'])
+{
+  $sql="insert into roles (descripcion) values ('$descripcion')";
+}
+else {
+  $sql="update roles set descripcion='$descripcion' where id=".$_POST['id'];
+}
 
 $result =  $conn->query($sql);
 

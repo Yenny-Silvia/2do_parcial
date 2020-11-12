@@ -1,33 +1,11 @@
 <?php 
-session_start();
-if (!isset($_SESSION['login']) || $_SESSION['login'] != "OK") {
-    header('location: index.php');
-}
+require_once('librerias/cabe.php');
 require_once('librerias/conexionBD.php');
 
 $sql = "select p.*,u.usuario as usuario,r.descripcion as rol from permisos p inner join usuarios u on p.id_usuario=u.id inner join roles r ON p.id_rol=r.id";
 $result = $conn->query($sql);
-$permisos = array();
-while ($fila = $result->fetch_array()) {
-  $permisos[]=$fila;
-}
-
-$sql = "select * from usuarios";
-$result =  $conn->query($sql);
-$usuarios = array();
-while ($fila =  $result->fetch_array()) {
-    $usuarios[] = $fila;
-}
 
 
-$sql = "select * from roles";
-$result =  $conn->query($sql);
-$roles = array();
-while ($fila =  $result->fetch_array()) {
-    $roles[] = $fila;
-}
-
-require_once('librerias/cabe.php');
 ?>
       <div class="container">
         <div class="row">
@@ -44,20 +22,22 @@ require_once('librerias/cabe.php');
                         <th></th>
                         <th></th>
                     </tr>
-                    <?php foreach ($permisos as $item): ?>
-                    <tr>
-                        <td><?= $item['id']?></td>
-                        
-                        <td><?= $item['usuario']?></td>
-                        <td><?= $item['rol']?></td>
-                        <td>
-                            <a href="#" class="btn btn-primary">Editar</a>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-danger">Eliminar</a>
-                        </td>
-                    </tr>
-                    <?php endforeach ?>
+                    <?php
+       if($result->num_rows>0){
+         $conta=0;
+         while ($fila=$result->fetch_array()) {
+           echo "<tr>";
+           echo '<td>'.++$conta.'</td>';
+           echo '<td>'.$fila['usuario'].'</td>';
+           echo '<td>'.$fila['rol'].'</td>';
+           echo '<td><a href="perm-ed.php?id=' . $fila['id']. '" class="btn btn-primary">Editar</a></td>';
+           echo '<td><a href="perm-elim.php?id=' . $fila['id']. '"onclick="return confirm(\'Seguro que quiere eliminar?\')" class="btn btn-danger">Eliminar</a></td>';
+           echo "</tr>";
+         }
+       }
+       else{
+         '<p> No existen registros</p>'
+;        }?>
                 </table>   
             </div>
         </div>

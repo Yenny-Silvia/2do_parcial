@@ -4,8 +4,7 @@ require_once('librerias/conexionBD.php');
 $id_usuario= $_POST['id_usuario'];
 $id_rol = $_POST['id_rol'];
 
-// var_dump($fecha_nac); // YYYY-MM-DD
-// die();
+
 
 $sql = "insert into permisos (id_usuario,id_rol) values ($id_usuario,$id_rol)";
 
